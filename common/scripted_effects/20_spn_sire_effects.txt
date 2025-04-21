@@ -1,0 +1,85 @@
+﻿#####################
+### Sire Tracking ###
+#####################
+spn_assign_conferred_sire = {
+	set_variable = {
+		name = spn_conferred_sire
+		value = $CHARACTER$
+	}
+	add_character_flag = spn_has_conferred_sire
+}
+
+spn_assign_conferred_progeny = {
+	set_variable = {
+		name = spn_conferred_progeny
+		value = $CHARACTER$
+	}
+	add_character_flag = spn_has_conferred_progeny
+}
+
+spn_assign_vampire_blood_donor = {
+	set_variable = {
+		name = spn_vampire_blood_donor
+		value = $CHARACTER$
+	}
+}
+
+spn_assign_conferred_vampire_blood = {
+    set_variable = {
+		name = spn_conferred_sire
+		value = var:spn_vampire_blood_donor
+	}
+	add_character_flag = spn_has_conferred_sire
+}
+
+spn_assign_father_sire = {
+	set_variable = {
+		name = spn_father_sire
+		value = $FATHER$
+	}
+	add_character_flag = spn_has_father_sire
+}
+
+spn_assign_mother_sire = {
+	set_variable = {
+		name = spn_mother_sire
+		value = $MOTHER$
+	}
+	add_character_flag = spn_has_mother_sire
+}
+
+spn_assign_hunter_trainer = {
+	set_variable = {
+		name = spn_hunter_trainer
+		value = $CHARACTER$
+	}
+	add_character_flag = spn_has_hunter_trainer
+}
+
+spn_update_number_of_supernatural_children_for_parents = {
+	scope:real_father = {
+		spn_update_num_immortal_children = yes
+	}
+	scope:mother = {
+		spn_update_num_immortal_children = yes
+	}
+}
+
+spn_update_num_immortal_children = {
+	if = {
+		limit = { has_character_flag = spn_has_supernatural_children }
+		change_variable = {
+			name = spn_number_of_supernatural_children
+			add = 1
+		}
+	}
+	else = {
+		add_character_flag = {
+			flag = spn_has_supernatural_children
+		}
+		set_variable = {
+			name = spn_number_of_supernatural_children
+			value = 1
+		}
+	}
+}

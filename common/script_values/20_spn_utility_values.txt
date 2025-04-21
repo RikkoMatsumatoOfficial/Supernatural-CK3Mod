@@ -1,0 +1,151 @@
+﻿#Calculates the total skill values of a character
+spn_total_skill = {
+	value = diplomacy
+	add = martial
+	add = stewardship
+	add = intrigue
+	add = learning
+}
+
+#Calc chance for immortal Pregnancy
+spn_supernatural_pregnancy_chance = {
+	value = fertility
+	multiply = 30 #Changed for SPN 2.01 for mirroring, originally 40, then 25, now its 30
+}
+
+spn_human_pregnancy_chance = {
+	value = fertility
+	multiply = 50
+}
+
+#Calculate pregnancy chance for Supernaturals
+spn_pregnancy_chance = {
+	value = 0
+
+	if = { #Mother is Supernatural
+		limit = { 
+			spn_has_supernatural_trait = yes
+		}
+		add = spn_supernatural_pregnancy_chance
+	}
+	else = {
+		add = spn_human_pregnancy_chance
+	}
+
+	if = { #Father is Supernatural
+		limit = { 
+			scope:real_father = { spn_has_supernatural_trait = yes }
+		}
+		scope:real_father = {
+			add = spn_supernatural_pregnancy_chance
+		}
+	}
+	else = {
+		scope:real_father = {
+			add = spn_human_pregnancy_chance
+		}
+	}
+
+	if = { #If Mother has had Supernatural children already
+		limit = {
+			has_character_flag = spn_has_supernatural_children
+			spn_has_supernatural_trait = yes
+		}
+		add = var:spn_number_of_supernatural_children
+		multiply = -5
+	}
+
+	if = { #If father has had Supernatural children already
+		limit = {
+			scope:real_father = { 
+				has_character_flag = spn_has_supernatural_children 
+				spn_has_supernatural_trait = yes
+			}
+		}
+		scope:real_father = {
+			add = var:spn_number_of_supernatural_children
+		}
+		multiply = -5
+	}
+	
+	if = { #If Mother and/or Father are Vampire
+		limit = {
+			OR = {
+				scope:real_father = { has_trait = supernatural_vampire }
+				scope:mother = { has_trait = supernatural_vampire }
+			}
+		}
+		multiply = 0			
+	}
+		
+	if = { #Mother and father are not the same type of Supernatural
+		limit = {
+			OR = {
+				AND = {
+					has_trait = supernatural_hybrid
+					scope:real_father = { has_trait = supernatural_werewolf }
+				}
+				AND = {
+					has_trait = supernatural_werewolf
+					scope:real_father = { has_trait = supernatural_hybrid }
+				}
+			}
+		}
+		multiply = 0.25 #Changed for SPN 2.01 for mirroring, originally 20
+	}
+	else_if = {
+		limit = {
+			OR = {
+				AND = {
+					has_trait = supernatural_hybrid
+					scope:real_father = {
+						has_trait = supernatural_werewolf
+					}
+				}
+				AND = {
+					OR = {
+						has_trait = supernatural_werewolf
+					}
+					scope:real_father = { has_trait = supernatural_hybrid }
+				}
+			}
+		}
+		multiply = 0.5
+	}
+
+	min = 5 #Originally 0, but trying to boost Hybrid babies
+	max = 75
+}
+
+#Calculates how many years the character has been immortal
+spn_years_as_immortal = {
+    value = 0 #Changed from just value = age in v2.08
+    add = age
+    if = {
+        limit = { exists = var:spn_age_aquired_immortality }
+        subtract = var:spn_age_aquired_immortality
+    }
+}
+
+spn_calc_gradual_visual_age = {
+	value = 0
+	add = age
+
+	if = {
+		limit = { var:spn_age_aquired_immortality > 16 }
+		subtract = var:spn_age_aquired_immortality
+	}
+	else = {
+		subtract = 16
+	}
+
+	divide = 5
+	
+	if = {
+		limit = { var:spn_age_aquired_immortality > 16 }
+		add = var:spn_age_aquired_immortality
+	}
+	else = {
+		add = 16
+	}
+}

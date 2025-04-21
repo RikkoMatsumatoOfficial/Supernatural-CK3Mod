@@ -1,0 +1,391 @@
+﻿witch_familiar_perk = {
+	lifestyle = magic_lifestyle
+	tree = witch
+	position = { 1 0 }
+	icon = node_magic
+	#can_be_picked = { 
+	#	has_trait = witch
+	# }
+	auto_selection_weight = {
+		value = 0
+		if = {
+			limit = {
+				OR = {
+					has_trait = witch
+					any_secret = { secret_type = secret_witch }
+				}
+			}
+			add = 2000
+		}
+	}
+
+	can_be_picked = {
+		#OR = {
+		#	has_trait = witch
+		#	any_secret = { secret_type = secret_witch }
+		#}
+		OR = {
+			has_focus=witch_focus
+			has_trait = true_witch
+		}
+	}
+
+	effect = {
+		#add_character_modifier = {
+		#	modifier = cat_story_modifier
+		#}
+		
+		#trigger_event = {
+		#	id = hold_court.8142
+		#	id = trait_specific_ongoing.1004
+		#	days = { 1 3 }
+		#}
+		random_list = {
+			20 = {
+				trigger = {
+					NOT = {	has_character_modifier = witch_familiar_modifier1	}
+				}
+				send_interface_toast = {
+					title = witch_familiar_perk_name1
+					add_character_modifier = witch_familiar_modifier1
+				}
+			}
+			20 = {
+				trigger = {
+					NOT = {	has_character_modifier = witch_familiar_modifier2	}
+				}
+				send_interface_toast = {
+					title = witch_familiar_perk_name1
+					add_character_modifier = witch_familiar_modifier2
+				}
+			}
+			20 = {
+				trigger = {
+					NOT = {	has_character_modifier = witch_familiar_modifier3	}
+				}
+				send_interface_toast = {
+					title = witch_familiar_perk_name1
+					add_character_modifier = witch_familiar_modifier3
+				}
+			}
+			20 = {
+				trigger = {
+					NOT = {	has_character_modifier = witch_familiar_modifier4	}
+				}
+				send_interface_toast = {
+					title = witch_familiar_perk_name1
+					add_character_modifier = witch_familiar_modifier4
+				}
+			}
+			20 = {
+				trigger = {
+					NOT = {	has_character_modifier = witch_familiar_modifier5	}
+				}
+				send_interface_toast = {
+					title = witch_familiar_perk_name1
+					add_character_modifier = witch_familiar_modifier5
+				}
+			}
+		}
+		
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						has_trait = true_witch
+					}
+				}
+				random = {
+					chance = 95
+					trigger_event = {
+						id = magic_ev2.59
+						months = { 4 110 }
+					}
+				}
+			}
+		}
+	}
+}
+#precognition
+oneiromancy_perk = {
+	lifestyle = magic_lifestyle
+	tree = witch
+	position = { 0.20 1 }
+	icon = node_magic
+
+	parent = witch_familiar_perk
+
+	can_be_picked = {
+		#OR = {
+		#	has_trait = witch
+		#	any_secret = { secret_type = secret_witch }
+		#}
+		OR = {
+			has_focus=witch_focus
+			has_trait = true_witch
+		}
+	}
+
+	character_modifier = {
+		enemy_hostile_scheme_success_chance_add = -10
+		#enemy_hostile_scheme_duration_add = 4
+	}
+
+	effect = {
+		#custom_label = oneiromancy_perk_scrying_ct
+		custom_description_no_bullet = { text = oneiromancy_perk_effect }
+	}
+}
+
+wisdom_of_nature_perk = {
+	lifestyle = magic_lifestyle
+	tree = witch
+	position = { 3 0 }
+	icon = node_magic
+	can_be_picked = { 
+		OR = {
+			has_focus=witch_focus
+			has_trait = true_witch
+		}
+	}
+	
+	auto_selection_weight = {
+		value = 0
+		if = {
+			limit = {
+				OR = {
+					has_trait = witch
+					any_secret = { secret_type = secret_witch }
+				}
+			}
+			add = 2000
+		}
+	}
+
+	effect = {
+		custom_tooltip = wisdom_of_nature_perk_effect
+		if = {
+			limit = {
+				NOR = {
+					has_character_modifier = yaga_modifier
+					AND = {
+						has_trait = yaga
+						is_ai = yes
+					}
+					has_trait = true_witch
+				}
+			}
+			trigger_event = {
+				id = magic_ev.2
+				days = { 1 3 }
+			}
+			hidden_effect = {
+				random = {
+					chance = 95
+					trigger_event = {
+						id = magic_ev2.57
+						months = { 3 120 }
+					}
+				}
+			}
+		}
+		
+	}
+}
+
+love_potions_perk = {
+	lifestyle = magic_lifestyle
+	tree = witch
+	position = { 3.80 1 }
+	icon = node_magic
+
+	parent = wisdom_of_nature_perk
+
+	can_be_picked = {
+		OR = {
+			has_focus=witch_focus
+			has_trait = true_witch
+		}
+	}
+	
+	character_modifier = {
+		attraction_opinion = 20
+		personal_scheme_phase_duration_add = -2
+	}
+	
+	effect = {
+		#custom_tooltip = love_potions_perk_effect
+		
+		
+	}
+}
+
+mistical_insight_perk = {
+	lifestyle = magic_lifestyle
+	tree = witch
+	position = { 2 2 }
+	icon = node_magic
+
+	parent = oneiromancy_perk
+	parent = love_potions_perk
+
+	can_be_picked = {
+		has_focus=witch_focus
+	}
+
+	character_modifier = {
+		monthly_lifestyle_xp_gain_mult = 0.05
+		#hostile_scheme_power_add = 5
+		hostile_scheme_phase_duration_add = -2
+		#cultural_head_fascination_mult = 0.05
+	}
+}
+
+
+
+magical_senses_perk = {
+	lifestyle = magic_lifestyle
+	tree = witch
+	position = { 2 3.2 }
+	icon = node_magic
+
+	parent = mistical_insight_perk
+
+	can_be_picked = {
+		#OR = {
+		#	has_trait = witch
+		#	any_secret = { secret_type = secret_witch }
+		#}
+		OR = {
+			has_focus=witch_focus
+			has_trait = true_witch
+		}
+	}
+
+	effect = {
+		custom_tooltip = magical_senses_perk_effect
+		if = {
+			limit = {
+				has_trait = lifestyle_mystic
+			}
+			add_trait_xp = {
+				trait = lifestyle_mystic
+				value = 10
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					is_ai = no
+				}
+				random = {
+					chance = 35
+					trigger_event = {
+						id = magic_ev5.34
+						months = { 6 48 }
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+true_witch_perk = {
+	lifestyle = magic_lifestyle
+	tree = witch
+	position = { 2 4.4 }
+	icon = true_witch
+	
+	parent = magical_senses_perk
+	
+	trait = true_witch
+	effect = {
+		custom_tooltip = true_witch_perk_tt
+		add_trait_force_tooltip = true_witch
+		#custom_tooltip = unlocks_artifacts_search_ct
+		#custom_tooltip = additional_sc_for_mage_ct
+		if = {
+			limit = {
+				has_trait = grandmaster_coven
+			}
+			add_trait_xp = {
+				trait = grandmaster_coven
+				value = 20
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_character_modifier = yaga_modifier
+				}
+			}
+		set_focus = no
+		hidden_effect = {
+			#if = {
+			#	limit = {
+			#		has_trait = archmage
+			#	}
+			#	add_trait_xp = {
+			#		trait = archmage
+			#		track = secret_knowledge
+			#		value = 5
+			#	}
+			#}
+			if = {
+					limit = {
+						is_ai = yes
+					}
+					trigger_event = magic_ev2.60
+				}
+				else = {
+					random_list = {
+						5 = {
+							trigger_event = {
+								id = magic_ev2.75
+								years = { 1 5 }
+							}
+						}
+						25 = {
+							trigger = {
+								NOT = {
+									has_character_flag = known_magic_place_flag
+								}
+							}
+							trigger_event = {
+								id = magic_ev4.84
+								years = { 1 5 }
+							}
+						}
+						70 = {
+							trigger_event = {
+								id = magic_ev8.39
+								years = { 1 5 }
+							}
+						}
+					}
+				}
+				#if = {
+				#	limit = {
+				#		exists = dynasty
+				#		dynasty = {
+				#			NOT = {
+				#				has_variable = used_magic_book
+				#			}
+				#		}
+				#	}
+				#	#blackgrimoire special
+				#	random = {
+				#		chance = 80
+				#		trigger_event = {
+				#			id = magic_ev4.57
+				#			years = { 1 5 }
+				#		}
+				#	}
+				#}
+			}
+		}
+		
+	}
+}

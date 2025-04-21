@@ -1,0 +1,130 @@
+﻿#Randomly Assign traits on startup based on settings
+spn_npc_trait_dist_all = {
+	trigger = {
+		has_game_rule = spn_yes_npc_trait_dist
+	}
+	effect = {
+		every_living_character = {
+			limit = {
+				spn_meets_dist_criteria = { TIER = tier_empire }
+			}
+			trigger_event = spn_trait_dist.0001 
+		}
+	}
+}
+
+spn_npc_trait_dist_kings = {
+	trigger = {
+		has_game_rule = spn_kings_npc_trait_dist
+	}
+	effect = {
+		every_living_character = {
+			limit = {
+				spn_meets_dist_criteria = { TIER = tier_kingdom }
+			}
+			trigger_event = spn_trait_dist.0001 
+		}
+	}
+}
+
+spn_npc_trait_dist_dukes = {
+	trigger = {
+		has_game_rule = spn_dukes_npc_trait_dist
+	}
+	effect = {
+		every_living_character = {
+			limit = {
+				spn_meets_dist_criteria = { TIER = tier_duchy }
+			}
+			trigger_event = spn_trait_dist.0001 
+		}
+	}
+}
+
+spn_npc_trait_dist_counts = {
+	trigger = {
+		has_game_rule = spn_counts_npc_trait_dist
+	}
+	effect = {
+		every_living_character = {
+			limit = {
+				spn_meets_dist_criteria = { TIER = tier_county }
+			}
+			trigger_event = spn_trait_dist.0001 
+		}
+	}
+}
+
+spn_npc_trait_dist_barons = {
+	trigger = {
+		has_game_rule = spn_barons_npc_trait_dist
+	}
+	effect = {
+		every_living_character = {
+			limit = {
+				spn_meets_dist_criteria = { TIER = tier_barony }
+			}
+			trigger_event = spn_trait_dist.0001 
+		}
+	}
+}
+
+spn_npc_trait_dist_no_ruler = {
+	trigger = {
+		has_game_rule = spn_no_ruler_npc_trait_dist
+	}
+	effect = {
+		every_living_character = {
+			limit = {
+				spn_meets_dist_criteria = { TIER = tier_unlanded }
+			}
+			trigger_event = spn_trait_dist.0001 
+		}
+	}
+}
+
+spn_check_hunter_skill_traits = {		#Updated in 2.05 to set the variable, no more error.log issues
+	trigger = {
+		has_trait = supernatural_hunter
+	}
+	effect = {
+		if = {
+			limit = {
+				NOT = { has_variable = spn_yearly_pulses_since_trait_upgrade }
+			}
+			set_variable = {
+				name = spn_yearly_pulses_since_trait_upgrade
+				value = 0
+			}
+		}
+		random_list = {
+			0 = { #Upgrade Age Trait
+				modifier = { #Hunter Age 1
+					AND = {
+						has_trait = supernatural_hunter
+						var:spn_yearly_pulses_since_trait_upgrade >= 5
+					}
+					add = {
+						value = var:spn_yearly_pulses_since_trait_upgrade
+						multiply = 15
+					}
+				}
+				if = {
+					limit = {
+						has_trait = supernatural_hunter 
+					}
+					add_trait_xp = {
+						trait = supernatural_hunter
+						track = monster_hunting
+						value = 5
+					}
+				}
+			}
+			100 = { #No Upgrade
+				change_variable = {
+					name = spn_yearly_pulses_since_trait_upgrade add = 1 
+				}
+			}
+		}
+	}
+}

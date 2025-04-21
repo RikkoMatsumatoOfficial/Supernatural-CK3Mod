@@ -1,0 +1,37 @@
+﻿supernatural_animal = {
+    alias = { animal }
+    texture = "gfx/interface/icons/regimenttypes/animals.dds"
+    parent = men_at_arms
+}
+supernatural_monster = {
+    alias = { monster }
+    texture = "gfx/interface/icons/regimenttypes/werewolves.dds"
+    parent = men_at_arms
+}
+werewolves = {
+    alias = { were-wolves }
+    texture = "gfx/interface/icons/regimenttypes/werewolves.dds"
+    parent = supernatural_monster
+}
+
+feeding_success_chance = {
+	alias = { feeding_success_chance_no_prefix }
+	texture = "gfx/interface/icons/activities/vampire_feeding.dds"
+	parent = activity
+}
+
+vampire = {
+	alias = { vampires }
+}
+
+werewolf = {
+	alias = { werewolves }
+}
+
+hybrid = {
+	alias = { hybrids }
+}
+
+spn_hunter = {
+	alias = { spn_hunters }
+}

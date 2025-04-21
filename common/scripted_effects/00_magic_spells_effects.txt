@@ -1,0 +1,1906 @@
+﻿execute_or_counter_spell_effect = {
+	scope:recipient = {
+		if = {
+			limit = {
+				has_perk = mage_tower_p2_perk
+				is_imprisoned = no
+			}
+			scope:actor = {
+				custom_tooltip = spell_may_be_countered
+			}
+			disp_spell_effect = { ID = $SID$ }
+			save_scope_as = magic_counterer
+			trigger_event = magic_ev10.8
+		}
+		else_if = {
+			limit = {
+				is_courtier = yes
+				exists = liege
+				NOT = {
+					liege = scope:actor
+				}
+				liege = {
+					has_perk = mage_tower_p2_perk
+					is_imprisoned = no
+				}
+			}
+			scope:actor = {
+				custom_tooltip = spell_may_be_countered
+			}
+			disp_spell_effect = { ID = $SID$ }
+			liege = {
+				save_scope_as = magic_counterer
+				trigger_event = magic_ev10.8
+			}
+		}
+		else_if = {
+			limit = {
+				is_courtier = yes
+				exists = liege
+				NOT = {
+					liege = scope:actor
+				}
+				liege = {
+					employs_court_position = mage_court_position
+					any_court_position_holder = {
+						type = mage_court_position
+						has_perk = mage_tower_p2_perk
+						is_imprisoned = no
+						NOT = {
+							THIS = scope:actor
+						}
+					}
+				}
+			}
+			scope:actor = {
+				custom_tooltip = spell_may_be_countered
+			}
+			disp_spell_effect = { ID = $SID$ }
+			liege = {
+				random_court_position_holder = {
+					type = mage_court_position
+					save_scope_as = magic_counterer
+					trigger_event = magic_ev10.8
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				is_ruler = yes
+				employs_court_position = mage_court_position
+				any_court_position_holder = {
+					type = mage_court_position
+					has_perk = mage_tower_p2_perk
+					is_imprisoned = no
+					NOT = {
+						THIS = scope:actor
+					}
+				}
+			}
+			scope:actor = {
+				custom_tooltip = spell_may_be_countered
+			}
+			disp_spell_effect = { ID = $SID$ }
+			random_court_position_holder = {
+				type = mage_court_position
+				save_scope_as = magic_counterer
+				trigger_event = magic_ev10.8
+			}
+		}
+		else = {
+			execute_spells_effect = { ID = $SID$ }
+		}
+	}
+}
+execute_or_counter_spell_hidden_effect = {
+	hidden_effect = {
+		scope:recipient = {
+			if = {
+				limit = {
+					has_perk = mage_tower_p2_perk
+					is_imprisoned = no
+				}
+				save_scope_as = magic_counterer
+				trigger_event = magic_ev10.8
+			}
+			else_if = {
+				limit = {
+					is_courtier = yes
+					exists = liege
+					NOT = {
+						liege = scope:actor
+					}
+					liege = {
+						has_perk = mage_tower_p2_perk
+						is_imprisoned = no
+					}
+				}
+				liege = {
+					save_scope_as = magic_counterer
+					trigger_event = magic_ev10.8
+				}
+			}
+			else_if = {
+				limit = {
+					is_courtier = yes
+					exists = liege
+					NOT = {
+						liege = scope:actor
+					}
+					liege = {
+						employs_court_position = mage_court_position
+						any_court_position_holder = {
+							type = mage_court_position
+							has_perk = mage_tower_p2_perk
+							is_imprisoned = no
+							NOT = {
+								THIS = scope:actor
+							}
+						}
+					}
+				}
+				liege = {
+					random_court_position_holder = {
+						type = mage_court_position
+						save_scope_as = magic_counterer
+						trigger_event = magic_ev10.8
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					is_ruler = yes
+					employs_court_position = mage_court_position
+					any_court_position_holder = {
+						type = mage_court_position
+						has_perk = mage_tower_p2_perk
+						is_imprisoned = no
+						NOT = {
+							THIS = scope:actor
+						}
+					}
+				}
+				random_court_position_holder = {
+					type = mage_court_position
+					save_scope_as = magic_counterer
+					trigger_event = magic_ev10.8
+				}
+			}
+			else = {
+				execute_spells_effect = { ID = $SID$ }
+			}
+		}
+	}
+}
+execute_spells_effect = {
+	if = {
+		limit = {
+			$ID$ = 2
+		}
+		regular_curse_effect = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 3
+		}
+		magic_domination_effect = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 5
+		}
+		powerful_curse_effect = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 6
+		}
+		banish_demon_spell_effect = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 8
+		}
+		death_wish_spell_effect = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 9
+		}
+		#show_as_tooltip = {
+		#	random_list ={
+		#		1 = {
+		#			show_chance = no
+		#			scope:recipient = {
+		#				death = natural
+		#			}
+		#		}
+		#		1 = {
+		#			show_chance = no
+		#			scope:recipient = {
+		#				add_trait_force_tooltip = wounded_3
+		#			}
+		#		}
+		#	}
+		#}
+		#hidden_effect = {
+		#	power_strike_spell_effect = yes
+		#}
+		power_strike_spell_effect = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 13
+		}
+		plague_spell_effect = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 15
+		}
+		firestorm_spell_effect = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 17
+		}
+		mind_scan_spell_effect = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 18
+		}
+		use_raw_magic_effect = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 19
+		}
+		soul_transfer_spell_effect = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 30
+		}
+		tornado_spell_effect = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 31
+		}
+		cursed_land_effect = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 321
+		}
+		magic_inception_effect1 = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 322
+		}
+		magic_inception_effect2 = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 323
+		}
+		magic_inception_effect3 = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 324
+		}
+		magic_inception_effect4 = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 325
+		}
+		magic_inception_effect5 = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 326
+		}
+		magic_inception_effect6 = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 327
+		}
+		magic_inception_effect7 = yes
+	}
+	else_if = {
+		limit = {
+			$ID$ = 33
+		}
+		antimagic_seal_effect = yes
+	}
+}
+disp_spell_effect = {
+	if = {
+		limit = {
+			$ID$ = 2
+		}
+		show_as_tooltip = {
+			regular_curse_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 3
+		}
+		show_as_tooltip = {
+			magic_domination_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 5
+		}
+		show_as_tooltip = {
+			powerful_curse_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 6
+		}
+		show_as_tooltip = {
+			banish_demon_spell_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 8
+		}
+		show_as_tooltip = {
+			death_wish_spell_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 9
+		}
+		show_as_tooltip = {
+			power_strike_spell_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 13
+		}
+		show_as_tooltip = {
+			plague_spell_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 15
+		}
+		show_as_tooltip = {
+			firestorm_spell_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 17
+		}
+		show_as_tooltip = {
+			mind_scan_spell_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 18
+		}
+		show_as_tooltip = {
+			use_raw_magic_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 19
+		}
+		show_as_tooltip = {
+			soul_transfer_spell_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 30
+		}
+		show_as_tooltip = {
+			tornado_spell_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 31
+		}
+		show_as_tooltip = {
+			cursed_land_effect = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 321
+		}
+		show_as_tooltip = {
+			magic_inception_effect1 = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 322
+		}
+		show_as_tooltip = {
+			magic_inception_effect2 = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 323
+		}
+		show_as_tooltip = {
+			magic_inception_effect3 = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 324
+		}
+		show_as_tooltip = {
+			magic_inception_effect4 = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 325
+		}
+		show_as_tooltip = {
+			magic_inception_effect5 = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 326
+		}
+		show_as_tooltip = {
+			magic_inception_effect6 = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 327
+		}
+		show_as_tooltip = {
+			magic_inception_effect7 = yes
+		}
+	}
+	else_if = {
+		limit = {
+			$ID$ = 33
+		}
+		show_as_tooltip = {
+			antimagic_seal_effect = yes
+		}
+	}
+}
+regular_curse_effect = {
+	scope:recipient = {
+		if = {
+			limit = {
+				exists = scope:actor
+				scope:actor = {
+					any_equipped_character_artifact = {
+						has_variable = catalyst
+					}
+				}
+			}
+			add_character_modifier = { modifier = cursed_modifier years = 10 }
+		}
+		else = {
+			add_character_modifier = { modifier = cursed_modifier years = 5 }
+		}
+	}
+}
+magic_domination_effect = {
+	scope:actor = {
+		hidden_effect_new_object = {
+			if = {
+				limit = {
+					has_hook = scope:recipient
+				}
+				remove_hook = {
+					target = scope:recipient
+				}
+			}
+			scope:recipient = {
+				if = {
+					limit = {
+						has_hook = scope:actor
+					}
+					remove_hook = {
+						target = scope:actor
+					}
+				}
+			}
+		}
+		hidden_effect_new_object = {
+			scope:recipient = {
+				every_relation = {
+					type = mmaster
+					remove_relation_mminion = scope:recipient
+				}
+			}
+		}
+		set_relation_mminion = scope:recipient
+		add_hook = {
+				type = magic_domination_hook
+				target = scope:recipient
+		}
+		
+		if = {
+			limit = {
+				exists = scope:magic_domination_faith
+				scope:magic_domination_faith = yes
+			}
+			scope:recipient = {
+				set_culture_same_as = scope:actor
+				set_character_faith = scope:actor.faith
+			}
+		}
+	}
+}
+powerful_curse_effect = {
+	if = {
+		limit = {
+			exists = scope:actor.var:curse_type
+			scope:actor.var:curse_type = 0
+		}
+		powerful_curse0_effect = yes
+	}
+	else_if = {
+		limit = {
+			exists = scope:actor.var:curse_type
+			scope:actor.var:curse_type = 1
+		}
+		powerful_curse1_effect = yes
+	}
+	else_if = {
+		limit = {
+			exists = scope:actor.var:curse_type
+			scope:actor.var:curse_type = 2
+		}
+		powerful_curse2_effect = yes
+	}
+	else_if = {
+		limit = {
+			exists = scope:actor.var:curse_type
+			scope:actor.var:curse_type = 3
+		}
+		powerful_curse3_effect = yes
+	}
+	else_if = {
+		limit = {
+			exists = scope:actor.var:curse_type
+			scope:actor.var:curse_type = 4
+		}
+		powerful_curse4_effect = yes
+	}
+	else_if = {
+		limit = {
+			exists = scope:actor.var:curse_type
+			scope:actor.var:curse_type = 5
+		}
+		powerful_curse5_effect = yes
+	}
+	else = {
+		powerful_curse0_effect = yes
+	}
+	hidden_effect = {
+		scope:actor = {
+			remove_variable = curse_type
+			send_message_4_magic_sense_effect = yes
+		}
+	}
+}
+powerful_curse0_effect = {
+	scope:reci = {
+		send_interface_toast = {
+			title = trait_immortal2
+			add_trait = immortal2
+		}
+	}
+}
+powerful_curse1_effect = {
+	scope:reci.house = {
+		add_house_modifier = {
+			modifier = cursed_house
+		}
+	}
+}
+powerful_curse2_effect = {
+	scope:reci = {
+		random_list = {
+			60 = {
+				send_interface_toast = {
+					title = you_are_cursed
+					death = {
+						death_reason = death_murder
+						killer = root
+					}
+				}
+				
+			}
+			20 = { trigger = {
+					NOT = { has_trait = wounded_1 }
+					NOT = { has_trait = wounded_2 }
+					NOT = { has_trait = wounded_3 }
+					NOT = { has_trait = disfigured }
+				}
+				send_interface_toast = {
+					title = you_are_cursed
+					add_trait = wounded_3
+					add_trait = disfigured
+				}
+				
+				add_character_modifier = { modifier = cursed_modifier years = 4 }
+			}
+			20 = { trigger = {
+					NOT = { has_trait = maimed }
+					NOT = { has_trait = disfigured }
+				}
+				send_interface_toast = {
+					title = you_are_cursed
+					add_trait = maimed
+					add_trait = disfigured
+				}
+				
+				add_character_modifier = { modifier = cursed_modifier years = 4 }
+			}
+		}
+	}
+}
+powerful_curse3_effect = {
+	scope:reci = {
+		add_trait = depressed_genetic
+		add_character_modifier = { modifier = cursed_modifier years = 4 }
+		random_list = {
+			25 = { trigger = {
+					NOT = { has_trait = leper }
+				}
+				send_interface_toast = {
+					title = you_are_cursed
+					add_trait = leper
+				}
+			}
+			25 = { trigger = {
+					NOT = { has_trait = consumption }
+				}
+				send_interface_toast = {
+					title = you_are_cursed
+					add_trait = consumption
+				}
+			}
+			25 = { trigger = {
+					NOT = { has_trait = cancer }
+				}
+				send_interface_toast = {
+					title = you_are_cursed
+					add_trait = cancer
+				}
+			}
+			25 = { trigger = {
+					NOT = { has_trait = typhus }
+				}
+				send_interface_toast = {
+					title = you_are_cursed
+					add_trait = typhus
+				}
+			}
+		}
+	}
+}
+powerful_curse4_effect = {
+	scope:reci = {
+		add_character_modifier = { modifier = cursed_modifier years = 4 }
+		
+		send_interface_toast = {
+			title = you_are_cursed
+			add_trait = lunatic_1
+			add_trait = depressed_1
+		}
+		add_stress = 200
+		if = {
+			limit = {
+				NOT = {
+					has_trait = incapable
+				}
+			}
+			random = {
+				chance = 50
+				add_trait = incapable
+			}
+		}
+	}
+}
+powerful_curse5_effect = {
+	scope:reci = {
+		add_character_modifier = { modifier = cursed_modifier years = 4 }
+		if = { limit = { has_trait = fecund }
+			remove_trait = fecund
+		}
+		send_interface_toast = {
+			title = you_are_cursed
+			add_trait = infertile
+		}
+		add_character_modifier = infertile_modifier
+	}
+}
+banish_demon_spell_effect = {
+	scope:recipient = {
+		custom_tooltip = banish_demon_ct
+		hidden_effect = {
+			death = natural
+		}
+	}
+	hidden_effect = {
+		scope:actor = {
+			if = {
+				limit = {
+					has_character_flag = fund_demon_fighting_flag
+				}
+				pay_for_demon_head_effect = yes
+			}
+		}
+	}
+}
+death_wish_spell_effect = {
+	scope:recipient = {
+		send_interface_toast = {
+			title = death_wish
+			left_icon = scope:recipient
+			death = {
+				death_reason = death_murder
+				killer = scope:actor
+			}
+		}
+	}
+}
+power_strike_spell_effect = {
+	scope:actor = {
+		if = {
+			limit = {
+				scope:weaken_spell_flag = yes
+			}
+			add_dread = medium_dread_gain
+			
+			scope:recipient = {
+				if = {
+					limit = {
+						scope:power_strike_imprison_flag = yes
+					}
+					add_trait = wounded_3
+					add_stress = massive_stress_gain
+					imprison_character_effect = {
+						TARGET = scope:recipient
+						IMPRISONER = scope:actor
+					}
+				}
+				else = {
+					show_as_tooltip = {
+						add_trait = wounded_3
+						add_stress = massive_stress_gain
+					}
+					scope:actor = {
+						if = {
+							limit = {
+								NOR = {
+									has_imprisonment_reason = scope:recipient
+									has_banish_reason = scope:recipient
+									has_execute_reason = scope:recipient
+								}
+							}
+							add_tyranny = minor_tyranny_gain
+						}
+					}
+					custom_tooltip = power_strike_spare_ct
+					trigger_event = magic_ev5.4
+				}
+			}
+		}
+		else = {
+			add_dread = major_dread_gain
+			if = {
+				limit = {
+					scope:actor = {
+						is_in_army = yes
+						exists = commanding_army
+						commanding_army = {
+							is_army_in_combat = yes
+						}
+					}
+					scope:recipient = {
+						is_in_army = yes
+						OR = {
+							AND = {
+								exists = commanding_army
+								commanding_army = {
+									is_army_in_combat = yes
+								}
+								NOT = {
+									commanding_army = scope:actor.commanding_army
+								}
+								commanding_army.location = scope:actor.commanding_army.location
+							}
+							AND = {
+								exists = liege_or_court_owner
+								liege_or_court_owner = {
+									any_army = {
+										is_army_in_combat = yes
+										NOT = {
+											THIS = scope:actor.commanding_army
+										}
+										location = scope:actor.commanding_army.location
+									}
+								}
+							}
+						}
+					}
+				}
+				add_character_flag = mage_during_battle_flag
+			}
+			else = {
+				if = {
+					limit = {
+						has_execute_reason = scope:recipient
+					}
+					custom_tooltip = IS_ALLOWED_TO_EXECUTE_DESC
+				}
+				else = {
+					add_tyranny = execution_tyranny_gain
+					add_kinslayer_trait_or_nothing_effect = { VICTIM = scope:recipient }
+					if = {
+						limit = {
+							NOT = {	has_trait = murderer	}
+						}
+						add_trait = murderer
+					}
+					hidden_effect = {
+						if = {
+							limit = {
+								exists = scope:recipient.primary_heir
+								scope:recipient.primary_heir = {
+									any_close_family_member = {
+										this = scope:recipient
+									}
+									NOR = {
+										has_relation_rival = scope:actor
+										has_relation_nemesis = scope:actor
+										has_relation_mminion = scope:actor
+										has_trait = craven
+										has_trait = forgiving
+									}
+								}
+							}
+							set_relation_rival = scope:recipient.primary_heir
+						}
+						else_if = {
+							limit = {
+								scope:recipient.age<16
+								exists = scope:recipient.father
+								scope:recipient.father = {
+									is_alive = yes
+									is_landed_or_landless_administrative = yes
+									is_ruler = yes
+									NOR = {
+										has_relation_rival = scope:actor
+										has_relation_nemesis = scope:actor
+										has_relation_mminion = scope:actor
+										has_trait = craven
+										has_trait = forgiving
+									}
+								}
+							}
+							set_relation_rival = scope:recipient.father
+						}
+					}
+				}
+			}
+			
+		}
+
+		
+		hidden_effect = {
+			if = {
+				limit = {
+					trait_is_criminal_in_faith_trigger = { TRAIT = witch FAITH = scope:actor.faith GENDER_CHARACTER = scope:actor }
+				}
+				every_ruler = {
+					limit = {
+						faith = scope:actor.faith
+						NOR = {
+							this = scope:actor
+							has_trait = witch
+							has_trait = cynical
+							has_trait = true_witch
+							has_trait = archmage
+							is_a_demon_trigger = yes
+							has_trait = forgiving
+							any_secret = { secret_type = secret_witch }
+						}
+					}
+					#use_magic_opinion
+					if = {
+						limit = {
+							NOR = {
+								has_trait = zealous
+								has_trait = theologian
+							}
+						}
+						add_opinion = {
+							modifier = use_magic_opinion
+							target = scope:actor
+							opinion = -30
+						}
+					}
+					else = {
+						add_opinion = {
+							modifier = use_magic_opinion
+							target = scope:actor
+							opinion = -50
+						}
+					}
+				}
+				scope:actor = {
+					every_courtier_or_guest = {
+						limit = {
+							faith = scope:actor.faith
+							NOR = {
+								this = scope:actor
+								has_trait = witch
+								has_trait = cynical
+								has_trait = true_witch
+								has_trait = archmage
+								is_a_demon_trigger = yes
+								has_trait = forgiving
+								any_secret = { secret_type = secret_witch }
+							}
+						}
+						add_opinion = {
+							modifier = use_magic_opinion
+							target = scope:actor
+							opinion = -30
+						}
+					}
+				}
+				if = {
+					limit = {
+						exists = scope:actor.faith.religious_head
+						NOT = {	scope:actor.faith.religious_head = scope:actor	}
+						NOT = {	has_trait = excommunicated	}
+						NOT = {	has_character_modifier = excommunication_recently_lifted	}
+						scope:actor.faith = {
+							has_doctrine = tenet_communion
+							has_doctrine = doctrine_spiritual_head
+						}
+						scope:actor.faith.religious_head = {
+							opinion = { target = scope:actor value < 0 }
+						}
+					}
+					add_trait = excommunicated
+				}
+			}
+		}
+		if = {
+			limit = {
+				scope:weaken_spell_flag = no
+			}
+			if = {
+				limit = {
+					scope:actor = {
+						has_character_flag = mage_during_battle_flag
+					}
+				}
+				scope:recipient = {
+					death = {
+						death_reason = death_battle
+						killer = scope:actor
+					}
+				}
+				scope:actor = {
+					remove_character_flag = mage_during_battle_flag
+				}
+			}
+			else = {
+				execute_opinion_effect = { VICTIM = scope:recipient EXECUTIONER = scope:actor }
+				scope:recipient = {
+					death = {
+						death_reason = death_execution
+						killer = scope:actor
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = scope:actor.involved_activity
+				}
+				scope:actor.involved_activity = {
+					every_attending_character = {
+						limit = {
+							NOR = {
+								this = scope:actor
+								this = scope:recipient
+							}
+						}
+						trigger_event = magic_ev5.8
+					}
+				}
+			}
+		}
+	}
+}
+plague_spell_effect = {
+	scope:recipient = {
+		show_as_tooltip = {
+			add_character_modifier = {
+				modifier = plague_spell_modifier
+				years = 2
+			}
+			
+			custom_tooltip = plague_spell_ct2
+		}
+		trigger_event = magic_ev5.2
+	}
+}
+firestorm_spell_effect = {
+	scope:recipient = {
+		custom_tooltip = fire_storm_spell_ct0
+		custom_tooltip = fire_storm_spell_ct2
+		custom_tooltip = fire_storm_spell_ct3
+		if = {
+			limit = {
+				is_antimagic_trigger = no
+			}
+			custom_tooltip = fire_storm_spell_ct1
+		}
+		every_living_character = {
+			limit = {
+				exists = location
+				exists = scope:recipient.location
+				location = scope:recipient.location
+			}
+			trigger_event = magic_ev5.24
+		}
+	}
+}
+mind_scan_spell_effect = {
+	scope:actor = {
+		custom_tooltip = mind_scan_ct1
+		custom_tooltip = mind_scan_ct2
+		scope:recipient = {
+			custom_tooltip = mind_scan_ct3
+		}
+		trigger_event = magic_ev6.11
+	}
+}
+use_raw_magic_effect = {
+	scope:actor = {
+		scope:recipient = {
+			custom_tooltip = use_raw_magic_ct1
+			custom_description_no_bullet = {
+				text = empty_description1
+			}
+		}
+		hidden_effect = {
+			random_list = {
+				1 = {	#curse
+					trigger = {
+						scope:recipient = {
+							NOT = {
+								has_character_modifier = cursed_modifier
+							}
+						}
+					}
+					trigger_event = magic_ev7.12
+				}
+				1 = {	#nothing
+					trigger = {
+						scope:actor = {
+							is_the_choosen_one_trigger = no
+						}
+					}
+					trigger_event = magic_ev7.13
+				}
+				1 = {	#cancer
+					trigger_event = magic_ev7.14
+				}
+				1 = {	#variety
+					trigger_event = magic_ev7.15
+				}
+				1 = {	#dangerous
+					trigger = {
+						scope:actor = {
+							has_trait_xp = {
+								trait = source
+								track = instability
+								value > 29
+							}
+						}
+					}
+					trigger_event = magic_ev7.16
+				}
+				1 = {
+					trigger_event = magic_ev7.139	#wounds / stress / opinion
+				}
+			}
+		}
+	}
+}
+soul_transfer_spell_effect = {
+	scope:actor = {
+		hidden_effect = {
+			scope:recipient = {
+				if = {
+					limit = {
+						has_trait = incapable
+					}
+					remove_trait = incapable
+				}
+				if = {
+					limit = {
+						has_character_flag = no_soul
+					}
+					remove_character_flag = no_soul
+				}
+				clear_personality_effect = yes
+				clear_perks_effect = yes
+				clear_valid_magic_flags_effect = yes
+				if = {
+					limit = {
+						NOR = {
+							has_trait = witch
+							any_secret = { secret_type = secret_witch }
+						}
+					}
+					give_witch_secret_or_trait_effect2 = yes
+				}
+			}
+			transfer_personality_to_recipient_effect = yes
+			transfer_perks_to_recipient_effect = yes
+			transfer_mage_xp_effect = yes
+			transfer_valid_magic_flags_effect = yes
+		}
+		custom_tooltip = soul_transfer_spell_ct
+		custom_tooltip = soul_transfer_spell_ct2
+		
+		if = {
+			limit = {
+				scope:soul_transfer_artifacts = yes
+			}
+			every_character_artifact = {
+				set_owner = {
+					target = scope:recipient
+					history = {
+						type = given
+						actor = root
+						recipient = scope:recipient
+						location = scope:recipient.location
+					}
+				}
+			}
+		}
+		set_player_character = scope:recipient
+		hidden_effect = {
+			add_trait = incapable
+		}
+	}
+}
+tornado_spell_effect = {
+	if = {
+		limit = {
+			exists = scope:actor.var:tornado_type
+			scope:actor.var:tornado_type = 0
+		}
+		tornado_spell_effect0 = yes
+	}
+	else_if = {
+		limit = {
+			exists = scope:actor.var:tornado_type
+			scope:actor.var:tornado_type = 1
+		}
+		tornado_spell_effect1 = yes
+	}
+	else_if = {
+		limit = {
+			exists = scope:actor.var:tornado_type
+			scope:actor.var:tornado_type = 2
+		}
+		tornado_spell_effect2 = yes
+	}
+	else_if = {
+		limit = {
+			exists = scope:actor.var:tornado_type
+			scope:actor.var:tornado_type = 3
+		}
+		tornado_spell_effect3 = yes
+	}
+	scope:actor = {
+		remove_variable = tornado_type
+	}
+}
+tornado_spell_effect0 = {
+	scope:actor = {
+		custom_tooltip = use_tornado_spell_army_ct
+		custom_tooltip = use_tornado_spell_army_ct2
+		custom_tooltip = use_tornado_spell_army_ct3
+		scope:army1 = {
+			location = {
+				if = {
+					limit = {
+						exists = county
+					}
+					county = {
+						change_county_control = extreme_county_control_loss
+						change_development_progress = major_development_progress_loss
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_province_modifier = tornado_spell_modifier
+						}
+					}
+					add_province_modifier = {
+						modifier = tornado_spell_modifier
+						years = 3
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			save_scope_as = magic_user
+			send_message_4_magic_sense_effect = yes
+			scope:army1 = {
+				location = {
+					every_army_in_location = {
+						deplete_army_by_percentage = 0.98
+						send_tornado_notification_effect = yes
+					}
+					every_character_in_location = {
+						limit = {
+							is_powerful_being = no
+						}
+						if = {
+							limit = {
+								OR = {
+									has_trait  = wounded_1
+									has_trait  = wounded_2
+									has_trait  = wounded_3
+								}
+							}
+							random = {
+								chance = 30
+								death = {
+									death_reason = death_violent_storm
+								}
+							}
+						}
+						else = {
+							random_list = {
+								1 = {
+									send_interface_toast = {
+										title = tornado_spell
+										add_trait = wounded_1
+									}
+								}
+								1 = {
+									send_interface_toast = {
+										title = tornado_spell
+										add_trait = wounded_2
+									}
+								}
+								1 = {
+									send_interface_toast = {
+										title = tornado_spell
+										add_trait = wounded_3
+									}
+								}
+								2 = {
+									
+								}
+							}
+						}
+					}
+				}
+			}
+			send_interface_toast = {
+				title = tornado_spell
+				custom_tooltip = use_tornado_spell_destruction_ct
+			}
+		}
+	}
+}
+tornado_spell_effect1 = {
+	scope:actor = {
+		custom_tooltip = use_tornado_spell_army_ct
+		custom_tooltip = use_tornado_spell_army_ct2
+		custom_tooltip = use_tornado_spell_army_ct3
+		scope:army2 = {
+			location = {
+				if = {
+					limit = {
+						exists = county
+					}
+					county = {
+						change_county_control = extreme_county_control_loss
+						change_development_progress = major_development_progress_loss
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_province_modifier = tornado_spell_modifier
+						}
+					}
+					add_province_modifier = {
+						modifier = tornado_spell_modifier
+						years = 3
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			save_scope_as = magic_user
+			send_message_4_magic_sense_effect = yes
+			scope:army2 = {
+				location = {
+					every_army_in_location = {
+						deplete_army_by_percentage = 0.98
+						send_tornado_notification_effect = yes
+					}
+					every_character_in_location  = {
+						limit = {
+							is_powerful_being = no
+						}
+						if = {
+							limit = {
+								OR = {
+									has_trait  = wounded_1
+									has_trait  = wounded_2
+									has_trait  = wounded_3
+								}
+							}
+							random = {
+								chance = 30
+								death = {
+									death_reason = death_violent_storm
+								}
+							}
+						}
+						else = {
+							random_list = {
+								1 = {
+									send_interface_toast = {
+										title = tornado_spell
+										add_trait = wounded_1
+									}
+								}
+								1 = {
+									send_interface_toast = {
+										title = tornado_spell
+										add_trait = wounded_2
+									}
+								}
+								1 = {
+									send_interface_toast = {
+										title = tornado_spell
+										add_trait = wounded_3
+									}
+								}
+								2 = {
+									
+								}
+							}
+						}
+					}
+				}
+			}
+			send_interface_toast = {
+				title = tornado_spell
+				custom_tooltip = use_tornado_spell_destruction_ct
+			}
+		}
+	}
+}
+tornado_spell_effect2 = {
+	scope:actor = {
+		custom_tooltip = use_singularity_agains_army_ct
+		custom_tooltip = use_tornado_spell_army_ct3
+		scope:recipient = {
+			location = {
+				if = {
+					limit = {
+						exists = county
+					}
+					county = {
+						change_county_control = extreme_county_control_loss
+						change_development_progress = major_development_progress_loss
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_province_modifier = tornado_spell_modifier
+						}
+					}
+					add_province_modifier = {
+						modifier = tornado_spell_modifier
+						years = 3
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			set_spell_id = { ID = 30 }
+			save_scope_as = magic_user
+			send_message_4_magic_sense_effect = yes
+
+			scope:recipient = {
+				location = {
+					every_army_in_location = {
+						deplete_army_by_percentage = 0.98
+						send_tornado_notification_effect = yes
+					}
+					every_character_in_location  = {
+						limit = {
+							is_powerful_being = no
+						}
+						if = {
+							limit = {
+								OR = {
+									has_trait  = wounded_1
+									has_trait  = wounded_2
+									has_trait  = wounded_3
+								}
+							}
+							random = {
+								chance = 30
+								death = {
+									death_reason = death_violent_storm
+								}
+							}
+						}
+						else = {
+							random_list = {
+								1 = {
+									send_interface_toast = {
+										title = tornado_spell
+										add_trait = wounded_1
+									}
+								}
+								1 = {
+									send_interface_toast = {
+										title = tornado_spell
+										add_trait = wounded_2
+									}
+								}
+								1 = {
+									send_interface_toast = {
+										title = tornado_spell
+										add_trait = wounded_3
+									}
+								}
+								2 = {
+									
+								}
+							}
+						}
+					}
+				}
+			}
+			send_interface_toast = {
+				title = tornado_spell
+				custom_tooltip = use_tornado_spell_destruction_ct
+			}
+		}
+	}
+}
+tornado_spell_effect3 = {
+	scope:actor = {
+		custom_tooltip = use_singularity_agains_army_ct
+		custom_tooltip = use_tornado_spell_army_ct3
+		scope:recipient = {
+			capital_province = {
+				if = {
+					limit = {
+						exists = county
+					}
+					county = {
+						change_county_control = extreme_county_control_loss
+						change_development_progress = major_development_progress_loss
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							has_province_modifier = tornado_spell_modifier
+						}
+					}
+					add_province_modifier = {
+						modifier = tornado_spell_modifier
+						years = 3
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			set_spell_id = { ID = 30 }
+			save_scope_as = magic_user
+			send_message_4_magic_sense_effect = yes
+			scope:recipient = {
+				capital_province = {
+					every_army_in_location = {
+						deplete_army_by_percentage = 0.98
+						send_tornado_notification_effect = yes
+					}
+					every_character_in_location  = {
+						limit = {
+							is_powerful_being = no
+						}
+						if = {
+							limit = {
+								OR = {
+									has_trait  = wounded_1
+									has_trait  = wounded_2
+									has_trait  = wounded_3
+								}
+							}
+							random = {
+								chance = 30
+								death = {
+									death_reason = death_violent_storm
+								}
+							}
+						}
+						else = {
+							random_list = {
+								1 = {
+									send_interface_toast = {
+										title = tornado_spell
+										add_trait = wounded_1
+									}
+								}
+								1 = {
+									send_interface_toast = {
+										title = tornado_spell
+										add_trait = wounded_2
+									}
+								}
+								1 = {
+									send_interface_toast = {
+										title = tornado_spell
+										add_trait = wounded_3
+									}
+								}
+								2 = {
+									
+								}
+							}
+						}
+					}
+				}
+			}
+			send_interface_toast = {
+				title = tornado_spell
+				custom_tooltip = use_tornado_spell_destruction_ct
+			}
+		}
+	}
+}
+cursed_land_effect = {
+	scope:recipient = {
+		capital_county = {
+			add_county_modifier = {
+				modifier = cursed_land_modifier
+				years = 5
+			}
+		}
+	}
+}
+magic_inception_effect1 = {
+	custom_tooltip = magic_inception_effect_ct
+	hidden_effect = {
+		real_magic_inception_effect1 = yes
+	}
+}
+real_magic_inception_effect1 = {
+	scope:recipient = {
+		random = {
+			chance = 90
+			custom_tooltip = ARCH_DEM_O2_ct
+			hidden_effect = {
+				trigger_event = magic_ev10.76
+			}
+		}
+	}
+}
+magic_inception_effect2 = {
+	custom_tooltip = magic_inception_effect_ct
+	hidden_effect = {
+		real_magic_inception_effect2 = yes
+	}
+}
+real_magic_inception_effect2 = {
+	scope:recipient = {
+		random = {
+			chance = 90
+			hidden_effect = {
+				if = {
+					limit = {
+						exists = house
+						exists = player_heir
+						house = player_heir.house
+						house.house_head = scope:recipient
+					}
+					house = {
+						#set_house_head = root.player_heir
+						save_scope_as = my_house
+					}
+					player_heir = {
+						save_scope_as = my_heir
+					}
+				}
+			}
+			if = {
+				limit = {
+					is_diarch = yes
+				}
+				if = {
+					limit = {
+						exists = liege
+						liege = {
+							exists = diarch
+							diarch = scope:recipient
+							can_leave_diarchy_trigger = yes
+						}
+					}
+					liege = {
+						end_diarchy = yes
+					}
+				}
+				else = {
+					depose_diarch = yes
+				}
+			}
+			if = {
+				limit = {
+					is_ruler = yes
+				}
+				depose = yes
+			}
+			
+			if = {
+				limit = {
+					exists = scope:my_house
+					exists = scope:my_heir
+				}
+				scope:my_house = {
+					set_house_head = scope:my_heir
+				}
+			}
+		}
+	}
+}
+magic_inception_effect3 = {
+	custom_tooltip = magic_inception_effect_ct
+	hidden_effect = {
+		real_magic_inception_effect3 = yes
+	}
+}
+real_magic_inception_effect3 = {
+	scope:recipient = {
+		random = {
+			chance = 90
+			show_as_tooltip = {
+				add_trait = conqueror
+			}
+			hidden_effect = {
+				create_story = story_conqueror
+			}
+			if = {
+				limit = {
+					has_trait = devoted
+				}
+				remove_trait = devoted
+			}
+			if = {
+				limit = {
+					has_trait = depressed_1
+				}
+				remove_trait = depressed_1
+			}
+			if = {
+				limit = {
+					has_trait = depressed_genetic
+				}
+				remove_trait = depressed_genetic
+			}
+			if = {
+				limit = {
+					has_trait = lazy
+				}
+				remove_trait = lazy
+				add_trait = diligent
+			}
+			if = {
+				limit = {
+					has_trait = craven
+				}
+				remove_trait = craven
+				add_trait = brave
+			}
+			if = {
+				limit = {
+					has_trait = content
+				}
+				remove_trait = content
+				add_trait = ambitious
+			}
+		}
+	}
+}
+magic_inception_effect4 = {
+	custom_tooltip = magic_inception_effect_ct
+	hidden_effect = {
+		real_magic_inception_effect4 = yes
+	}
+}
+real_magic_inception_effect4 = {
+	scope:recipient = {
+		random = {
+			chance = 90
+			if = {
+				limit = {
+					NOR = {
+						has_trait = depressed_1
+						has_trait = depressed_genetic
+					}
+				}
+				add_trait = depressed_1
+			}
+			add_stress = medium_stress_gain
+			if = {
+				limit = {
+					exists = joined_faction
+				}
+				leave_faction = joined_faction
+				add_character_flag = {
+					flag = joining_faction_block
+					years = 5
+				}
+			}
+			if = {
+				limit = {
+					any_scheme = {
+						count > 0
+					}
+				}
+				custom_tooltip = magic_inception_o4_ct
+				hidden_effect = {
+					every_scheme = {
+						end_scheme = yes
+					}
+				}
+			}
+		}
+	}
+}
+magic_inception_effect5 = {
+	custom_tooltip = magic_inception_effect_ct
+	hidden_effect = {
+		real_magic_inception_effect5 = yes
+	}
+}
+real_magic_inception_effect5 = {
+	scope:recipient = {
+		random = {
+			chance = 90
+			if = {
+				limit = {
+					NOR = {
+						has_relation_friend = scope:actor
+						has_relation_best_friend = scope:actor
+					}
+				}
+				set_relation_potential_friend = scope:actor
+			}
+			add_opinion = {
+				target = scope:actor
+				modifier = friendliness_opinion
+				opinion = 100
+			}
+		}
+	}
+}
+magic_inception_effect6 = {
+	custom_tooltip = magic_inception_effect_ct
+	hidden_effect = {
+		real_magic_inception_effect6 = yes
+	}
+}
+real_magic_inception_effect6 = {
+	scope:recipient = {
+		random = {
+			chance = 90
+			custom_tooltip = magic_inception_o6_ct
+			custom_description_no_bullet = {
+				text = empty_description1
+			}
+			hidden_effect = {
+				every_secret = {
+					expose_secret = scope:recipient
+				}
+			}
+		}
+	}
+}
+magic_inception_effect7 = {
+	custom_tooltip = magic_inception_effect_ct
+	hidden_effect = {
+		real_magic_inception_effect7 = yes
+	}
+}
+real_magic_inception_effect7 = {
+	scope:recipient = {
+		random = {
+			chance = 90
+			scope:actor = {
+				add_hook = {
+					type = favor_hook
+					target = scope:recipient
+				}
+			}
+		}
+	}
+}
+antimagic_seal_effect = {
+	scope:recipient = {
+		if = {
+			limit = {
+				has_unstable_source_trigger = yes
+			}
+			add_trait_xp = {
+				trait = source
+				track = instability
+				value = -100
+			}
+			custom_tooltip = make_source_stable_ct
+		}
+		if = {
+			limit = {
+				scope:actor = {
+					any_equipped_character_artifact = {
+						has_variable = catalyst
+					}
+				}
+			}
+			add_character_modifier = {
+				modifier = antimagic_seal_modifier
+				years = 20
+			}
+		}
+		else = {
+			add_character_modifier = {
+				modifier = antimagic_seal_modifier
+				years = 10
+			}
+		}
+	}
+}
